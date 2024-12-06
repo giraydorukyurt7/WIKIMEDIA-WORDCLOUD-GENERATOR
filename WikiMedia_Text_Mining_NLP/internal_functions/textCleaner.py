@@ -11,7 +11,7 @@ from textblob    import Word
 # Note: if you want to use this code the dataframe shouldn't have null values.
 # Example for handling null values:
 # df = df.dropna(subset="Review")
-def textCleaner(df_text, remove_html=True, rare_words = True):
+def textCleaner(df_text, remove_html=True, rare_words = True, rare_word_quantity=1):
     # Remove html elements
     if remove_html:
         df_text = df_text.apply(lambda x: ' '.join(BeautifulSoup(str(x), "html.parser").get_text().split()) if pd.notnull(x) else x)
@@ -27,7 +27,7 @@ def textCleaner(df_text, remove_html=True, rare_words = True):
     # Remove Rarewords
     if rare_words:
         rarewords_df = pd.Series(' '.join(df_text).split()).value_counts()
-        drops = rarewords_df[rarewords_df<=2]
+        drops = rarewords_df[rarewords_df<=rare_word_quantity]
         df_text = df_text.apply(lambda x: " ".join(x for x in str(x).split() if x not in drops))
     # Lemmatization
     df_text = df_text.apply(lambda x: " ".join([Word(word).lemmatize() for word in x.split()]))
