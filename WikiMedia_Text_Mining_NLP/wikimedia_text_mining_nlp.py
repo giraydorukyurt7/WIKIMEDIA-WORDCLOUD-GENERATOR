@@ -23,27 +23,53 @@ print(df["text"][100])
 #checking with tokenization
 #print(df["text"].apply(lambda x: TextBlob(x).words).head())
 
-#term frequency
-tf = df["text"].apply(lambda x: pd.Series(x.split(" ")).value_counts()).sum(axis=0).reset_index()
-tf.columns = ["words","tf"]
-print(tf)
+##term frequency
+#tf = df["text"].apply(lambda x: pd.Series(x.split(" ")).value_counts()).sum(axis=0).reset_index()
+#tf.columns = ["words","tf"]
+#print(tf)
+#
+##Bar plot
+#ax = tf[tf["tf"]>200].plot.bar(x="words", y="tf")
+#ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right', fontsize=10)
+#plt.tight_layout()
+#plt.show()
+#
+##Word Cloud
+#text = " ".join(i for i in df.text)
+#wordcloud = WordCloud(background_color="lightgray",
+#                      max_words=1000,
+#                      contour_width=3,
+#                      contour_color="firebrick",
+#                      colormap="gist_rainbow",
+#                      width=8000,
+#                      height=4000).generate(text)
+#plt.figure(figsize=(20,10))
+#plt.imshow(wordcloud, interpolation="bilinear")
+#plt.axis("off")
+#plt.show()
 
-#Bar plot
-ax = tf[tf["tf"]>200].plot.bar(x="words", y="tf")
-ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right', fontsize=10)
-plt.tight_layout()
-plt.show()
 
-#Word Cloud
-text = " ".join(i for i in df.text)
-wordcloud = WordCloud(background_color="lightgray",
-                      max_words=1000,
-                      contour_width=3,
-                      contour_color="firebrick",
-                      colormap="gist_rainbow",
-                      width=8000,
-                      height=4000).generate(text)
-plt.figure(figsize=(20,10))
-plt.imshow(wordcloud, interpolation="bilinear")
-plt.axis("off")
-plt.show()
+#Word Cloud for every text
+def generateWordCloud(pageNo=1, isALL=False):
+    if(isALL):
+        text = " ".join(i for i in df.text)
+        generateThis = text
+    else:
+        generateThis = df["text"][pageNo]
+
+    wordcloud = WordCloud(background_color="lightgray",
+                          max_words=1000,
+                          contour_width=3,
+                          contour_color="firebrick",
+                          colormap="gist_rainbow",
+                          width=8000,
+                          height=4000).generate(generateThis)
+    plt.figure(figsize=(20,10))
+    plt.imshow(wordcloud, interpolation="bilinear")
+    plt.axis("off")
+    plt.show()
+
+
+generateWordCloud(pageNo=100)
+
+generateWordCloud(isALL=True)
