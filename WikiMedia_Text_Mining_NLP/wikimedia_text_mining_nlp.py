@@ -23,8 +23,21 @@ print(df["text"][100])
 #checking with tokenization
 #print(df["text"].apply(lambda x: TextBlob(x).words).head())
 
+#def generateTitle(pageNo=1, isALL=False):
+#    if(isALL):
+#        title = "WikiMedia"
+#    else:
+#        title = " ".join(wikimedia_data[pageNo].split()[:5])
+#    return title
+#
+#print(generateTitle(isALL=True))
+#print(generateTitle(100))  
+#
+
+
 ##term frequency
 #tf = df["text"].apply(lambda x: pd.Series(x.split(" ")).value_counts()).sum(axis=0).reset_index()
+#print(tf.head())
 #tf.columns = ["words","tf"]
 #print(tf)
 #
@@ -33,23 +46,28 @@ print(df["text"][100])
 #ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right', fontsize=10)
 #plt.tight_layout()
 #plt.show()
-#
-##Word Cloud
-#text = " ".join(i for i in df.text)
-#wordcloud = WordCloud(background_color="lightgray",
-#                      max_words=1000,
-#                      contour_width=3,
-#                      contour_color="firebrick",
-#                      colormap="gist_rainbow",
-#                      width=8000,
-#                      height=4000).generate(text)
-#plt.figure(figsize=(20,10))
-#plt.imshow(wordcloud, interpolation="bilinear")
-#plt.axis("off")
-#plt.show()
+
+##Bar Plot For Every Text
+def generateBarPlot(pageNo=1, isALL=False, minTF=200):
+    if(isALL):
+        tf = df["text"].apply(lambda x: pd.Series(x.split(" ")).value_counts()).sum(axis=0).reset_index()
+        minTF=2000
+    else:
+        pageText = df["text"].iloc[pageNo]
+        tf = pd.Series(pageText.split()).value_counts().reset_index()
+    tf.columns = ["words","tf"]
+    #Bar plot
+    ax = tf[tf["tf"]>minTF].plot.bar(x="words", y="tf")
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right', fontsize=10)
+    plt.tight_layout()
+    plt.show()
+
+generateBarPlot(pageNo=100, minTF=1)
+
+generateBarPlot(isALL=True)
 
 
-#Word Cloud for every text
+#Word Cloud For Every Text
 def generateWordCloud(pageNo=1, isALL=False):
     if(isALL):
         text = " ".join(i for i in df.text)
@@ -70,6 +88,6 @@ def generateWordCloud(pageNo=1, isALL=False):
     plt.show()
 
 
-generateWordCloud(pageNo=100)
+#generateWordCloud(pageNo=100)
 
-generateWordCloud(isALL=True)
+#generateWordCloud(isALL=True)
