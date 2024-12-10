@@ -8,31 +8,33 @@ import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
 wikimedia_data = pd.read_csv("Dataset/wiki_data.csv", index_col=False)
+wikimedia_data.columns = ["index","text"]
+wikimedia_data.drop(columns="index",inplace=True)
+
 df = wikimedia_data.copy()
-df.columns = ["index","text"]
-df.drop(columns="index",inplace=True)
+
 print(df.head())
 print(df.columns)
 print(df.isnull().sum())
 print(df.size)
 
 print(df["text"][100])
-df["text"] = textCleaner(df["text"], remove_html=False)
-print("============\n\n\n")
-print(df["text"][100])
+#df["text"] = textCleaner(df["text"], remove_html=False)
+#print("============\n\n\n")
+#print(df["text"][100])
 #checking with tokenization
 #print(df["text"].apply(lambda x: TextBlob(x).words).head())
 
-#def generateTitle(pageNo=1, isALL=False):
-#    if(isALL):
-#        title = "WikiMedia"
-#    else:
-#        title = " ".join(wikimedia_data[pageNo].split()[:5])
-#    return title
-#
-#print(generateTitle(isALL=True))
-#print(generateTitle(100))  
-#
+def generateTitle(pageNo=1, isALL=False):
+    if(isALL):
+        title = "WikiMedia"
+    else:
+        title = " ".join(wikimedia_data.loc[pageNo, "text"].split()[:5])
+    return title
+
+print(generateTitle(isALL=True))
+print(generateTitle(pageNo=100))
+
 
 
 ##term frequency
@@ -62,9 +64,9 @@ def generateBarPlot(pageNo=1, isALL=False, minTF=200):
     plt.tight_layout()
     plt.show()
 
-generateBarPlot(pageNo=100, minTF=1)
+#generateBarPlot(pageNo=100, minTF=1)
 
-generateBarPlot(isALL=True)
+#generateBarPlot(isALL=True)
 
 
 #Word Cloud For Every Text
