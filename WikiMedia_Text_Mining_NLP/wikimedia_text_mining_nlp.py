@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from internal_functions.textCleaner import textCleaner
 from textblob import TextBlob
 from wordcloud import WordCloud
+from flask import Flask, request, jsonify, render_template 
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -13,27 +14,31 @@ wikimedia_data.drop(columns="index",inplace=True)
 
 df = wikimedia_data.copy()
 
-print(df.head())
-print(df.columns)
-print(df.isnull().sum())
-print(df.size)
+app = Flask(__name__)
 
-print(df["text"][100])
+
+#print(df.head())
+#print(df.columns)
+#print(df.isnull().sum())
+#print(df.size)
+#
+#print(df["text"][100])
+
 #df["text"] = textCleaner(df["text"], remove_html=False)
 #print("============\n\n\n")
 #print(df["text"][100])
 #checking with tokenization
 #print(df["text"].apply(lambda x: TextBlob(x).words).head())
 
-def generateTitle(pageNo=1, isALL=False):
+def generateTitle(pageNo=1, isALL=False, titleSize=3):
     if(isALL):
         title = "WikiMedia"
     else:
-        title = " ".join(wikimedia_data.loc[pageNo, "text"].split()[:5])
+        title = " ".join(wikimedia_data.loc[pageNo, "text"].split()[:titleSize])
     return title
 
-print(generateTitle(isALL=True))
-print(generateTitle(pageNo=100))
+#print(generateTitle(isALL=True))
+#print(generateTitle(pageNo=100))
 
 
 
@@ -93,3 +98,23 @@ def generateWordCloud(pageNo=1, isALL=False):
 #generateWordCloud(pageNo=100)
 
 #generateWordCloud(isALL=True)
+
+
+
+
+
+@app.route("/")
+def index():
+    return render_template("WikiMedia_World_Cloud.html")
+
+# API
+@app.route("/generate-title", methods=["POST"])
+def get_title():
+    data = request.json
+    pageNo = data.get("pageNo", 100)
+    isALL = data.get("isALL", False)
+    result = generateTitle(pageNo, isALL)
+    return jsonify({"title": result})
+
+if __name__ == "__main__":
+    app.run(debug=True)
