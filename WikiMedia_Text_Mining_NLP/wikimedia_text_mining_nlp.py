@@ -104,16 +104,17 @@ def generateWordCloud(pageNo=1, isALL=False):
 
 
 @app.route("/")
-def index():
+def index(): #renders the page
     return render_template("WikiMedia_World_Cloud.html")
 
-# API
 @app.route("/generate-title", methods=["POST"])
 def get_title():
     data = request.json
-    pageNo = data.get("pageNo", 100)
+    pageNo = data.get("pageNo", 1)
     isALL = data.get("isALL", False)
-    result = generateTitle(pageNo, isALL)
+    titleSize = data.get("titleSize", 3)
+
+    result = generateTitle(pageNo=pageNo, isALL=isALL, titleSize=titleSize) #Calls function
     return jsonify({"title": result})
 
 if __name__ == "__main__":
