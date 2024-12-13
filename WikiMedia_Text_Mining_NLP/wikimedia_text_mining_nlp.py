@@ -24,7 +24,8 @@ app = Flask(__name__)
 #
 #print(df["text"][100])
 
-#df["text"] = textCleaner(df["text"], remove_html=False)
+
+df["text"] = textCleaner(df["text"], remove_html=False)
 #print("============\n\n\n")
 #print(df["text"][100])
 #checking with tokenization
@@ -40,7 +41,14 @@ def generateTitle(pageNo=1, isALL=False, titleSize=3):
 #print(generateTitle(isALL=True))
 #print(generateTitle(pageNo=100))
 
+def getPage(pageNo=1, cleanPage=False):
+    if not cleanPage:
+        return wikimedia_data["text"][pageNo]
+    else:
+        return df["text"][pageNo]
 
+#print(getPage(pageNo=100))
+#print(getPage(pageNo=100,cleanPage=True))
 
 ##term frequency
 #tf = df["text"].apply(lambda x: pd.Series(x.split(" ")).value_counts()).sum(axis=0).reset_index()
@@ -116,6 +124,15 @@ def get_title():
 
     result = generateTitle(pageNo=pageNo, isALL=isALL, titleSize=titleSize) #Calls function
     return jsonify({"title": result})
+
+@app.route("/get-page", methods=["POST"])
+def get_page():
+    data = request.json
+    pageNo = data.get("pageNo", 1)
+    cleanPage = data.get("cleanPage", False)
+
+    result = getPage(pageNo=pageNo, cleanPage=cleanPage) #Calls function
+    return jsonify({"Page": result})
 
 if __name__ == "__main__":
     app.run(debug=True)

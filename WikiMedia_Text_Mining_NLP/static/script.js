@@ -27,3 +27,31 @@ async function generateTitle() {
         document.getElementById("result").innerText = "Error generating title!";
     }
 }
+
+async function getPage() {
+    const pageNo = document.getElementById("pagePageNo").value;
+    const cleanPage = document.getElementById("cleanPage").checked;
+
+    try {
+        const response = await fetch("/get-page", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                pageNo: parseInt(pageNo),
+                cleanPage: cleanPage
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        document.getElementById("pageResult").innerText = `Page: ${data.Page}`;
+    } catch (error) {
+        console.error("Error:", error);
+        document.getElementById("pageResult").innerText = "Error getting page!";
+    }
+}
