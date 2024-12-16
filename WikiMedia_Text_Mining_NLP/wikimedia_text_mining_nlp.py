@@ -5,6 +5,7 @@ from internal_functions.textCleaner import textCleaner
 from textblob import TextBlob
 from wordcloud import WordCloud
 from flask import Flask, request, jsonify, render_template 
+import os
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -72,11 +73,15 @@ def generateBarPlot(pageNo=1, isALL=False, minTF=200):
         tf = pd.Series(pageText.split()).value_counts().reset_index()
     tf.columns = ["words","tf"]
     #Bar plot
-    fig, ax = plt.subplots()
-    ax = tf[tf["tf"]>minTF].plot.bar(x="words", y="tf")
+    #fig, ax = plt.subplots()
+    filtered_tf = tf[tf["tf"]>minTF]
+    if filtered_tf.empty:
+        print("No data available for the given filter criteria.")
+        return
+    ax = filtered_tf.plot.bar(x="words", y="tf")
     ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right', fontsize=10)
-    plt.savefig("static/barplot.png", format="png", bbox_inches="tight")
-    plt.close(fig)
+    plt.savefig("WikiMedia_Text_Mining_NLP/static/barplot.png", format="png", bbox_inches="tight")
+    #plt.close(fig)
 #generateBarPlot(pageNo=100, minTF=1)
 
 #generateBarPlot(isALL=True)
@@ -134,16 +139,17 @@ def get_page():
     result = getPage(pageNo=pageNo, cleanPage=cleanPage) #Calls function
     return jsonify({"Page": result})
 
-@app.route("/get-barplot", methods=["POST"])
+@app.route("/get-bar-plot", methods=["POST"])
 def get_barplot():
     data = request.json
     pageNo = data.get("pageNo",1)
-    isALL = data.get("isAll", False)
+    isALL = data.get("isALL", False)
     minTF = data.get("minTF", 200)
 
     generateBarPlot(pageNo=pageNo, isALL=isALL, minTF=minTF)
-
-    return jsonify({"succes": True, "plotUrl":"/static/barplot.png"})
+    if not os.path.exists("WikiMedia_Text_Mining_NLP/static/barplot.png"):
+        return jsonify({"success": False, "message": "No data available for the given filter criteria."})
+    return jsonify({"success": True, "plotUrl":"/static/barplot.png"})
 
 if __name__ == "__main__":
     app.run(debug=True)

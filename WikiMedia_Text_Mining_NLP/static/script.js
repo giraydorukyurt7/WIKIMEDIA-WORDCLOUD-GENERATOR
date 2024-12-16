@@ -70,16 +70,21 @@ async function getBarPlot() {
             body: JSON.stringify({
                 pageNo: parseInt(pageNo),
                 minTF: parseInt(minTF),
-                isALL: plot_isALL
+                isALL: isALL
             })
         });
 
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
-        if(data.succes){
-            const plotImage = dpcument.getElementById("barPlotImage");
+
+        const data = await response.json();
+        
+        if(data.success){
+            const plotImage = document.getElementById("barPlotImage");
             plotImage.src = "/static/barplot.png?t=" + new Date().getTime();
+        }else {
+            alert(data.message || "An error occurred while generating the plot.");
         }
     } catch (error) {
         console.error("Error:", error);
