@@ -55,3 +55,34 @@ async function getPage() {
         document.getElementById("pageResult").innerText = "Error getting page!";
     }
 }
+
+async function getBarPlot() {
+    const pageNo = document.getElementById("plotPageNo").value;
+    const minTF = document.getElementById("plotMinTF").value;
+    const isALL = document.getElementById("plot_isALL").checked;
+
+    try {
+        const response = await fetch("/get-bar-plot", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                pageNo: parseInt(pageNo),
+                minTF: parseInt(minTF),
+                isALL: plot_isALL
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        if(data.succes){
+            const plotImage = dpcument.getElementById("barPlotImage");
+            plotImage.src = "/static/barplot.png?t=" + new Date().getTime();
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Error generating bar plot!");
+    }
+}

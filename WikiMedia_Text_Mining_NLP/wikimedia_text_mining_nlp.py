@@ -72,11 +72,11 @@ def generateBarPlot(pageNo=1, isALL=False, minTF=200):
         tf = pd.Series(pageText.split()).value_counts().reset_index()
     tf.columns = ["words","tf"]
     #Bar plot
+    fig, ax = plt.subplots()
     ax = tf[tf["tf"]>minTF].plot.bar(x="words", y="tf")
     ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right', fontsize=10)
-    plt.tight_layout()
-    plt.show()
-
+    plt.savefig("static/barplot.png", format="png", bbox_inches="tight")
+    plt.close(fig)
 #generateBarPlot(pageNo=100, minTF=1)
 
 #generateBarPlot(isALL=True)
@@ -133,6 +133,17 @@ def get_page():
 
     result = getPage(pageNo=pageNo, cleanPage=cleanPage) #Calls function
     return jsonify({"Page": result})
+
+@app.route("/get-barplot", methods=["POST"])
+def get_barplot():
+    data = request.json
+    pageNo = data.get("pageNo",1)
+    isALL = data.get("isAll", False)
+    minTF = data.get("minTF", 200)
+
+    generateBarPlot(pageNo=pageNo, isALL=isALL, minTF=minTF)
+
+    return jsonify({"succes": True, "plotUrl":"/static/barplot.png"})
 
 if __name__ == "__main__":
     app.run(debug=True)
