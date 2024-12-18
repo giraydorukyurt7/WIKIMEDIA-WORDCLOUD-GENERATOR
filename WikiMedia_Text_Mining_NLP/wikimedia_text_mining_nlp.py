@@ -9,6 +9,10 @@ import os
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
+if os.path.exists("static/barplot.png"):
+        os.remove("static/barplot.png")
+
+
 wikimedia_data = pd.read_csv("Dataset/wiki_data.csv", index_col=False)
 wikimedia_data.columns = ["index","text"]
 wikimedia_data.drop(columns="index",inplace=True)
@@ -146,7 +150,11 @@ def get_barplot():
     isALL = data.get("isALL", False)
     minTF = data.get("minTF", 200)
 
+    if os.path.exists("static/barplot.png"):
+        os.remove("static/barplot.png")
+
     generateBarPlot(pageNo=pageNo, isALL=isALL, minTF=minTF)
+
     if not os.path.exists("WikiMedia_Text_Mining_NLP/static/barplot.png"):
         return jsonify({"success": False, "message": "No data available for the given filter criteria."})
     return jsonify({"success": True, "plotUrl":"/static/barplot.png"})
