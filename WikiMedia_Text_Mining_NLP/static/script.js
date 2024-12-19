@@ -91,3 +91,37 @@ async function getBarPlot() {
         alert("Error generating bar plot!");
     }
 }
+
+async function getWordCloud() {
+    const pageNo = document.getElementById("wordCloudPageNo").value;
+    const isALL = document.getElementById("wordCloud_isALL").checked;
+
+    try {
+        const response = await fetch("/get-wordCloud", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                pageNo: parseInt(pageNo),
+                isALL: isALL
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        
+        if(data.success){
+            const plotImage = document.getElementById("wordCloudImage");
+            plotImage.src = "/static/wordCloud.png?t=" + new Date().getTime();
+        }else {
+            alert(data.message || "An error occurred while generating the wordCloud.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Error generating wordCloud!");
+    }
+}

@@ -11,7 +11,8 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 if os.path.exists("static/barplot.png"):
         os.remove("static/barplot.png")
-
+if os.path.exists("static/wordCloud.png"):
+        os.remove("static/wordCloud.png")
 
 wikimedia_data = pd.read_csv("Dataset/wiki_data.csv", index_col=False)
 wikimedia_data.columns = ["index","text"]
@@ -109,7 +110,7 @@ def generateWordCloud(pageNo=1, isALL=False):
     plt.figure(figsize=(20,10))
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis("off")
-    plt.show()
+    plt.savefig("WikiMedia_Text_Mining_NLP/static/wordCloud.png", format="png", bbox_inches="tight")
 
 
 #generateWordCloud(pageNo=100)
@@ -158,6 +159,21 @@ def get_barplot():
     if not os.path.exists("WikiMedia_Text_Mining_NLP/static/barplot.png"):
         return jsonify({"success": False, "message": "No data available for the given filter criteria."})
     return jsonify({"success": True, "plotUrl":"/static/barplot.png"})
+
+@app.route("/get-wordCloud", methods=["POST"])
+def get_wordCloud():
+    data = request.json
+    pageNo = data.get("pageNo",1)
+    isALL = data.get("isALL", False)
+
+    if os.path.exists("static/wordCloud.png"):
+        os.remove("static/wordCloud.png")
+
+    generateWordCloud(pageNo=pageNo, isALL=isALL)
+
+    if not os.path.exists("WikiMedia_Text_Mining_NLP/static/wordCloud.png"):
+        return jsonify({"success": False, "message": "No data available for the given filter criteria."})
+    return jsonify({"success": True, "plotUrl":"/static/wordCloud.png"})
 
 if __name__ == "__main__":
     app.run(debug=True)
