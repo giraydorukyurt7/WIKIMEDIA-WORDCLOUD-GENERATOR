@@ -79,12 +79,13 @@ async function getBarPlot() {
         }
 
         const data = await response.json();
-        
+        const plotImage = document.getElementById("barPlotImage");
         if(data.success){
-            const plotImage = document.getElementById("barPlotImage");
             plotImage.src = "/static/barplot.png?t=" + new Date().getTime();
+            plotImage.style.display="block";
         }else {
             alert(data.message || "An error occurred while generating the plot.");
+            plotImage.style.display = "none";
         }
     } catch (error) {
         console.error("Error:", error);
