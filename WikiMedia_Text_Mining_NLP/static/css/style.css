@@ -1,0 +1,12 @@
+/* style.css */
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("../images/wikimedia_wordcloud_generator_wallpaper.jpg");
+    background-size: 100% 100%; /* Resim hem genişlikte hem yükseklikte strech yapılır */
+    background-position: center; /* Ortalanır */
+    background-repeat: no-repeat; /* Tekrar etmez */
+    min-height: 100vh; /* Sayfa boyu kadar minimum yükseklik */
+    width: 100%; /* Tam genişlik */
+    overflow-x: hidden; /* Yatay kaydırmayı gizler */
+}

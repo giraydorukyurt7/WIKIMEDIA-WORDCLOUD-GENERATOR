@@ -69,10 +69,9 @@ def getPage(pageNo=1, cleanPage=False):
 #plt.show()
 
 ##Bar Plot For Every Text
-def generateBarPlot(pageNo=1, isALL=False, minTF=200):
+def generateBarPlot(pageNo=1, isALL=False, minTF=2):
     if(isALL):
         tf = df["text"].apply(lambda x: pd.Series(x.split(" ")).value_counts()).sum(axis=0).reset_index()
-        minTF=2000
     else:
         pageText = df["text"].iloc[pageNo]
         tf = pd.Series(pageText.split()).value_counts().reset_index()
@@ -149,7 +148,7 @@ def get_barplot():
     data = request.json
     pageNo = data.get("pageNo",1)
     isALL = data.get("isALL", False)
-    minTF = data.get("minTF", 200)
+    minTF = data.get("minTF", 2)
 
     if os.path.exists("static/barplot.png"):
         os.remove("static/barplot.png")

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate Title</title>
     <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">  
 </head>
 <body>
     <h1>Welcome to Wikimedia</h1>
@@ -39,8 +40,8 @@
     <label for="plot_isALL">Use All:</label>
     <input type="checkbox" id="plot_isALL">
     <br>
-    <label for="plotMinTF">Minimum Term Frequency:</label>
-    <input type="number" id="plotMinTF" value="200">
+    <label for="plotMinTF" alt='Incease of "use all" recommended: 8000'>Minimum Term Frequency:</label>
+    <input type="number" id="plotMinTF" value="2">
     <br>
     <button onclick="getBarPlot()">Get Bar Plot</button>
     <img id="barPlotImage" alt="Bar Plot" style="max-width: 100%; margin-top: 20px;">
