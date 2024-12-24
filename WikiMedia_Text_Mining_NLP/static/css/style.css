@@ -3,10 +3,21 @@ body {
     margin: 0;
     padding: 0;
     background-image: url("../images/wikimedia_wordcloud_generator_wallpaper.jpg");
-    background-size: 100% 100%; /* Resim hem genişlikte hem yükseklikte strech yapılır */
-    background-position: center; /* Ortalanır */
+    background-size: 100% 100%; /* Resim tam boyutunda stretch edilir */
+    background-position: center; /* Resim ortalanır */
     background-repeat: no-repeat; /* Tekrar etmez */
-    min-height: 100vh; /* Sayfa boyu kadar minimum yükseklik */
-    width: 100%; /* Tam genişlik */
-    overflow-x: hidden; /* Yatay kaydırmayı gizler */
+    background-attachment: fixed; /* Scroll yapılınca arka plan sabit kalır */
+    min-height: 100vh; /* Minimum yükseklik ekranın tamamını kaplar */
+    width: 100%; /* Genişlik ekranın tamamını kaplar */
+    overflow-x: hidden; /* Yatay kaydırma çubuğunu gizler */
+}
+
+.div_content {
+    background: rgba(12, 12, 12, 0.8);
+    margin: 20px auto;
+    border: 1px solid black; 
+    border-radius: 200px;
+    width: auto; 
+    height: auto; 
+    box-sizing: border-box;
 }

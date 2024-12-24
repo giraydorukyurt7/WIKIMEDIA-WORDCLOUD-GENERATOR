@@ -8,52 +8,64 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">  
 </head>
 <body>
-    <h1>Welcome to Wikimedia</h1>
+    <div class="div_content">
+        <h1>Welcome to Wikimedia</h1>
+    </div>
     <br/>
-    <h2>Generate Title</h2>
-    <label for="pageNo">Page No:</label>
-    <input type="number" id="pageNo" value="1">
-    <br>
-    <label for="isALL">Use All:</label>
-    <input type="checkbox" id="isALL">
-    <br>
-    <label for="titleSize">Title Size:</label>
-    <input type="number" id="titleSize" value="3">
-    <br><br>
-    <button onclick="generateTitle()">Generate</button>
-    <p id="result"></p>
+    <div class="div_content">
+        <h2>Generate Title</h2>
+        <label for="pageNo">Page No:</label>
+        <input type="number" id="pageNo" value="1">
+        <br/>
+        <label for="isALL">Use All:</label>
+        <input type="checkbox" id="isALL">
+    </div>
     <br/>
+    <div class="div_content">
+        <label for="titleSize">Title Size:</label>
+        <input type="number" id="titleSize" value="3">
+        <br/>
+        <button onclick="generateTitle()">Generate</button>
+        <p id="result"></p>
+    </div>
+    <br/>
+    <div class="div_content">
     <h2>Get Page</h2>
-    <label for="pagePageNo">Page No:</label>
-    <input type="number" id="pagePageNo" value="1">
-    <br>
-    <label for="cleanPage">Clean Page:</label>
-    <input type="checkbox" id="cleanPage">
-    <br>
-    <button onclick="getPage()">Get Page</button>
-    <p id="pageResult"></p>
+        <label for="pagePageNo">Page No:</label>
+        <input type="number" id="pagePageNo" value="1">
+        <br>
+        <label for="cleanPage">Clean Page:</label>
+        <input type="checkbox" id="cleanPage">
+        <br>
+        <button onclick="getPage()">Get Page</button>
+        <p id="pageResult"></p>
+        <br/>
+    </div>
+    <div class="div_content">
+        <h2>Get Bar Plot</h2>
+        <label for="plotPageNo">Page No:</label>
+        <input type="number" id="plotPageNo" value="1">
+        <br>
+        <label for="plot_isALL">Use All:</label>
+        <input type="checkbox" id="plot_isALL">
+        <br>
+        <label for="plotMinTF" alt='Incease of "use all" recommended: 8000'>Minimum Term Frequency:</label>
+        <input type="number" id="plotMinTF" value="2">
+        <br>
+        <button onclick="getBarPlot()">Get Bar Plot</button>
+        <img id="barPlotImage" alt="Bar Plot" style="max-width: 100%; margin-top: 20px;">
+    </div>
     <br/>
-    <h2>Get Bar Plot</h2>
-    <label for="plotPageNo">Page No:</label>
-    <input type="number" id="plotPageNo" value="1">
-    <br>
-    <label for="plot_isALL">Use All:</label>
-    <input type="checkbox" id="plot_isALL">
-    <br>
-    <label for="plotMinTF" alt='Incease of "use all" recommended: 8000'>Minimum Term Frequency:</label>
-    <input type="number" id="plotMinTF" value="2">
-    <br>
-    <button onclick="getBarPlot()">Get Bar Plot</button>
-    <img id="barPlotImage" alt="Bar Plot" style="max-width: 100%; margin-top: 20px;">
-    <br/>
-    <h2>Get Word Cloud</h2>
-    <label for="wordCloudPageNo">Page No:</label>
-    <input type="number" id="wordCloudPageNo" value="1">
-    <br>
-    <label for="wordCloud_isALL">Use All:</label>
-    <input type="checkbox" id="wordCloud_isALL">
-    <br>
-    <button onclick="getWordCloud()">Get Bar Plot</button>
-    <img id="wordCloudImage" alt="Word Cloud" style="max-width: 100%; margin-top: 20px;">
+    <div class="div_content">
+        <h2>Get Word Cloud</h2>
+        <label for="wordCloudPageNo">Page No:</label>
+        <input type="number" id="wordCloudPageNo" value="1">
+        <br>
+        <label for="wordCloud_isALL">Use All:</label>
+        <input type="checkbox" id="wordCloud_isALL">
+        <br>
+        <button onclick="getWordCloud()">Get Bar Plot</button>
+        <img id="wordCloudImage" alt="Word Cloud" style="max-width: 100%; margin-top: 20px;">
+    </div>
 </body>
 </html>
