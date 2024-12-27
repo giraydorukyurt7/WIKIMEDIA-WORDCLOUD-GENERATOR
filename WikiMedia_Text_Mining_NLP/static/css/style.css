@@ -20,4 +20,6 @@ body {
     width: auto; 
     height: auto; 
     box-sizing: border-box;
+    color: #fff6f6;
+    text-shadow: yes;
 }
