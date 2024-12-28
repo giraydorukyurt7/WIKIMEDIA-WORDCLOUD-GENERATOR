@@ -29,7 +29,9 @@ The dataset consists of 10,859 entries gathered from Wikimedia, and it allows us
 
 ### Steps to Run the Project Locally
 
-- Clone the repository:
+1. Clone the repository:
    ```bash
    git clone https://github.com/giraydorukyurt7/WikiMedia-WordCloud-Generator.git
    cd WikiMedia-WordCloud-Generator
+2. Run wikimedia_text_mining_nlp.py
+3. Click the local-ip link in the output section.
