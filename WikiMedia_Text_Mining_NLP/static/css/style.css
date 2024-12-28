@@ -1,25 +1,71 @@
-/* style.css */
 body {
     margin: 0;
     padding: 0;
     background-image: url("../images/wikimedia_wordcloud_generator_wallpaper.jpg");
-    background-size: 100% 100%; /* Resim tam boyutunda stretch edilir */
-    background-position: center; /* Resim ortalanır */
-    background-repeat: no-repeat; /* Tekrar etmez */
-    background-attachment: fixed; /* Scroll yapılınca arka plan sabit kalır */
-    min-height: 100vh; /* Minimum yükseklik ekranın tamamını kaplar */
-    width: 100%; /* Genişlik ekranın tamamını kaplar */
-    overflow-x: hidden; /* Yatay kaydırma çubuğunu gizler */
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .div_content {
     background: rgba(12, 12, 12, 0.8);
     margin: 20px auto;
-    border: 1px solid black; 
-    border-radius: 200px;
+    border: 1px solid black;
+    border-radius: 20px;
     width: auto; 
     height: auto; 
     box-sizing: border-box;
     color: #fff6f6;
-    text-shadow: yes;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+    /* Centering content with Flexbox */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 0;
+    color: white;
+    margin-top: 40px;
+}
+
+.footer-container {
+    display: inline-block;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.374);
+    border-radius: 20px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.social-links .icon {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.social-links .icon:hover {
+    transform: scale(1.2);
+}
+
+.placeholder-icon {
+    width: 40px;
+    height: 40px;
+    background: black;
+    border-radius: 50%;
+    display: inline-block;
 }

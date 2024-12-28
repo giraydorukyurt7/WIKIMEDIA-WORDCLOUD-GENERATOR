@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generate Title</title>
+    <title>WIKIMEDIA WORDCLOUD GENERATOR</title>
     <script src="{{ url_for('static', filename='script.js') }}" defer></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">  
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png') }}">
 </head>
 <body>
     <div class="div_content">
-        <h1>Welcome to Wikimedia</h1>
+        <h1>WIKIMEDIA WORDCLOUD GENERATOR</h1>
     </div>
     <br/>
     <div class="div_content">
@@ -26,7 +27,6 @@
         <button onclick="generateTitle()">Generate</button>
         <p id="result"></p>
     </div>
-    <br/>
     <div class="div_content">
     <h2>Get Page</h2>
         <label for="pagePageNo">Page No:</label>
@@ -53,7 +53,6 @@
         <button onclick="getBarPlot()">Get Bar Plot</button>
         <img id="barPlotImage" alt="Bar Plot" style="max-width: 100%; margin-top: 20px; display: none;">
     </div>
-    <br/>
     <div class="div_content">
         <h2>Get Word Cloud</h2>
         <label for="wordCloudPageNo">Page No:</label>
@@ -65,5 +64,18 @@
         <button onclick="getWordCloud()">Get Word Cloud</button>
         <img id="wordCloudImage" alt="Word Cloud" style="max-width: 100%; margin-top: 20px; display: none;">
     </div>
+    <footer>
+        <div class="footer-container">
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/giraydorukyurt7/" target="_blank">
+                    <img class="icon" src="https://www.svgrepo.com/show/157006/linkedin.svg" alt="LinkedIn">
+                </a>
+                <a href="https://github.com/giraydorukyurt7" target="_blank">
+                    <img class="icon" src="https://www.svgrepo.com/show/332084/github.svg" alt="GitHub">
+                </a>
+                <div class="placeholder-icon"></div>
+            </div>
+        </div>
+    </footer>    
 </body>
 </html>
