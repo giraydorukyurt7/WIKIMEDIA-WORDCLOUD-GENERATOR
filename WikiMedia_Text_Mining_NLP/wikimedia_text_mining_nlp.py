@@ -14,9 +14,16 @@ if os.path.exists("static/barplot.png"):
 if os.path.exists("static/wordCloud.png"):
         os.remove("static/wordCloud.png")
 
-wikimedia_data = pd.read_csv("Dataset/wiki_data.csv", index_col=False)
-wikimedia_data.columns = ["index","text"]
-wikimedia_data.drop(columns="index",inplace=True)
+# Read Dataset Dynamically
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Create Dataset Path
+DATASET_PATH = os.path.join(BASE_DIR, '..', 'Dataset', 'wiki_data.csv')
+
+# READ CSV
+wikimedia_data = pd.read_csv(DATASET_PATH, index_col=False)
+wikimedia_data.columns = ["index", "text"]
+wikimedia_data.drop(columns="index", inplace=True)
 
 df = wikimedia_data.copy()
 
