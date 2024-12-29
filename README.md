@@ -7,6 +7,10 @@ The **Wikimedia Wordcloud Generator** is a Python-based web application that all
 
 The dataset consists of 10,859 entries gathered from Wikimedia, and it allows users to explore various text mining techniques like title generation, word cloud creation, and bar plot visualization based on term frequency.
 
+## Deployment Status
+
+The project is **deploy-ready**, but due to the high memory usage required for processing the dataset (specifically when generating word clouds from such a large volume of text), deploying it to a free-tier cloud server is not feasible at this moment. Free cloud services generally impose strict memory and computational limits that prevent the full processing of large datasets.
+
 ---
 
 ## Features
