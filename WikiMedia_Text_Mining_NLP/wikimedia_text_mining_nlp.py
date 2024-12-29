@@ -8,6 +8,8 @@ from flask import Flask, request, jsonify, render_template
 import os
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'internal_functions'))
 
 if os.path.exists("static/barplot.png"):
         os.remove("static/barplot.png")
